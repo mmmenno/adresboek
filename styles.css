@@ -1,0 +1,95 @@
+
+html, body{
+	margin:0;
+	padding-top: 0;
+	font-size: 14px;
+	background-color: #000;
+	color: #333;
+	height: 100%;
+	font-family: sans-serif;
+}
+
+@media only screen and (max-width: 900px) {
+  	#bigmap {
+		width: 100%;
+		height: 60%;
+	}
+	#legenda{
+		background-color: #f7ece8;
+		padding: 20px;
+		position: static;
+	}
+}
+@media only screen and (min-width: 900px) {
+  	#bigmap {
+  		position: fixed;
+		width: 100%;
+		height: 100%;
+	}
+	#legenda{
+		position: absolute;
+		z-index: 10000;
+		right: 0;
+		top: 0;
+		width: 350px;
+		background-color: #f7ece8;
+		box-shadow: 0px 0px 12px;
+		padding: 20px;
+	}
+}
+
+#legenda h1{
+	font-size: 32px;
+	font-family: "Georgia", serif;
+	font-weight: bold;
+	margin-top: 0;
+	margin-bottom: 6px;
+}
+#searchinfo{
+	margin-bottom: 24px;
+}
+#occupants{
+	line-height: 1.4em;
+}
+.small{
+	font-size: 10px;
+}
+form{
+	margin-top: 8px;
+	margin-bottom: 8px;
+}
+select, button{
+	padding: 4px 2px;
+}
+a{
+	color: #a50026;
+	text-decoration: none;
+}
+a.profession{
+	color: #6952ff;
+}
+a.streets{
+	color: #ff4bac;
+}
+a.corps{
+	color: #ff6d3e;
+}
+a.alphabetical{
+	color: #24bea9;
+}
+.leaflet-left .leaflet-control{
+	margin-top: 10px;
+	margin-left: 10px;
+}
+.leaflet-container .leaflet-control-attribution{
+	color: #000;
+}
+.leaflet-control-attribution a{
+	color: #000;
+}
+.leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar{
+	border: 2px solid #000;
+}
+.light{
+	color: #ccc;
+}
