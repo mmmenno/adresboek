@@ -80,7 +80,7 @@ include("streets.php");
   $(document).ready(function() {
 
     createMap();
-    refreshMap();
+    //refreshMap();
 
     document.body.onkeydown = function(e){
       if(e.keyCode == 32){
