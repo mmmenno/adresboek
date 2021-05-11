@@ -30,7 +30,7 @@ if(preg_match("/^https:\/\/adamlink.nl\/geo\/street\//", $q)){
 
 }elseif(preg_match("/^https:\/\/iisg.amsterdam\/resource\/hisco\/code\/hisco/", $q)){
 	$sql = "SELECT * FROM `observations` AS o
-			LEFT JOIN create_adresboeken.beroepen AS b on o.profession = b.normalised
+			LEFT JOIN beroepen AS b on o.profession = b.normalised
 			WHERE b.hiscocat LIKE '" . $mysqli->real_escape_string($q) . "%' and txt_lastname <> ''";
 
 }else{
@@ -80,7 +80,7 @@ while($row = $result->fetch_assoc()){
 	}
 	
 
-	$s = "select * from create_adresboeken.locatiepunten 
+	$s = "select * from locatiepunten 
 			where adamlink = '" . $row['uri_street'] . "'
 			and huisnr = '" . $nr . "'";
 	$r = $mysqli->query($s);
