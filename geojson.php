@@ -2,7 +2,7 @@
 
 include("settings.php");
 
-if(isset($_GET['q'])){
+if(isset($_GET['q']) && strlen($_GET['q'])){
 	$q = urldecode($_GET['q']);
 }else{
 	$q = "slijters en tappers";
