@@ -23,7 +23,8 @@ if(preg_match("/^https:\/\/adamlink.nl\/geo\/street\//", $q)){
 		WHERE profession = '" . $mysqli->real_escape_string($q) . "' and txt_lastname <> ''";
 }
 
-
+echo $sql;
+die;
 
 
 $result = $mysqli->query($sql);
