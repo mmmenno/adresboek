@@ -58,7 +58,7 @@ include("streets.php");
   or
   <form>
     <select style="width: 80%" name="q">
-      <option value="">select a Adamlink street</option>
+      <option value="">select an Adamlink street</option>
       <?php echo $streetoptions ?>
     </select>
     <button>go</button>
@@ -72,7 +72,7 @@ include("streets.php");
     <button>go</button>
   </form>
   
-  more info on app and data on GitHub
+  more info on <a href="https://github.com/mmmenno/adresboek">app on GitHub</a> and <a href="https://gitlab.com/uvacreate/amsterdam-time-machine/adresboeken">data on GitLab</a>
 
 </div>
 
@@ -166,19 +166,13 @@ include("streets.php");
             lps = L.geoJson(null, {
               pointToLayer: function (feature, latlng) {                    
                   return new L.CircleMarker(latlng, {
-                      color: "#FC2211",
-                      radius:4,
-                      weight: 1,
-                      opacity: 0.8,
-                      fillOpacity: 0.8
+                      color: "#a50026",
+                      radius:8,
+                      weight: 0,
+                      opacity: 0.6,
+                      fillOpacity: 0.6,
+                      clickable: true
                   });
-              },
-              style: function(feature) {
-                return {
-                    color: getColor(feature.properties),
-                    radius: getSize(feature.properties),
-                    clickable: true
-                };
               },
               onEachFeature: function(feature, layer) {
                 layer.on({
@@ -212,29 +206,13 @@ include("streets.php");
   function getColor(props) {
 
     
-      if(props['aanlegjaar'] == null){
-        return '#a50026';
-      }
-
-      var j = props['aanlegjaar'];
-      return j > 2000 ? '#4575b4' :
-             j > 1980 ? '#74add1' :
-             j > 1960  ? '#abd9e9' :
-             j > 1940  ? '#ffffbf' :
-             j > 1920  ? '#fee090' :
-             j > 1900  ? '#fdae61' :
-             j > 1870   ? '#f46d43' :
-                       '#a50026';
-
-    
-    
-    return '#1DA1CB';
+      return '#a50026';
   }
 
   function getSize(props) {
 
     if(props['nlabel'] == null){
-      return 4;
+      return 6;
     }
 
     return 6;

@@ -1,4 +1,18 @@
-<pre>
+<!DOCTYPE html>
+<html>
+<head>
+  
+<title>Adresboek 1907</title>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link rel="stylesheet" href="styles.css" />
+
+  
+</head>
+<body>
+
 <?
 
 include("settings.php");
@@ -32,6 +46,9 @@ $result = $mysqli->query($sql);
 $found = 0;
 $notfound = 0;
 $lps = array();
+$i = 0;
+
+echo "<table>";
 
 while($row = $result->fetch_assoc()){ 
 
@@ -39,7 +56,7 @@ while($row = $result->fetch_assoc()){
 	$modulus = $page%10;
 	$start = $page-$modulus;
 
-	$url = "https://archief.amsterdam/inventarissen/scans/30274/65/start/" . $start . "/limit/10/highlight/" . $modulus;
+	$url = "<a href=\"https://archief.amsterdam/inventarissen/scans/30274/65/start/" . $start . "/limit/10/highlight/" . $modulus . "\">to scan</a>";
 
 	
 	if(strlen($row['lastname'])){
@@ -71,12 +88,40 @@ while($row = $result->fetch_assoc()){
 	if($lp = $r->fetch_assoc()){
 		$found++;
 	}else{
-		echo '<br /><a href="' . $url . '">link to scan</a><br />';
-		print_r($row);
-		$notfound++;
+
+		unset($row['is_observation']);
+		unset($row['entity_type']);
+		unset($row['normalised']);
+		unset($row['hiscocat']);
+		unset($row['hiscocatname']);
+		unset($row['hiscocatdesc']);
+		
+		$add = array('scanurl' => $url);
+		$showrow = $add + $row;
+		$i++;
+		if($i==1){
+			echo "<tr>";
+			foreach ($showrow as $k => $v) {
+				echo "<th>";
+				echo $k;
+				echo "</th>";
+			}
+			echo "</tr>";
+		}
+
+		echo "<tr>";
+		foreach ($showrow as $k => $v) {
+			echo "<td>";
+			echo $v;
+			echo "</td>";
+		}
+		echo "</tr>";
 	}
 
 }
 
+echo "<table>";
+
 ?>
-</pre>
+</body>
+</html>

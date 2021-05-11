@@ -15,7 +15,7 @@ if(preg_match("/^https:\/\/adamlink.nl\/geo\/street\//", $q)){
 
 }elseif(preg_match("/^https:\/\/iisg.amsterdam\/resource\/hisco\/code\/hisco/", $q)){
 	$sql = "SELECT * FROM `observations` AS o
-			LEFT JOIN create_adresboeken.beroepen AS b on o.profession = b.normalised
+			LEFT JOIN beroepen AS b on o.profession = b.normalised
 			WHERE b.hiscocat LIKE '" . $mysqli->real_escape_string($q) . "%' and txt_lastname <> ''";
 
 }else{
@@ -70,6 +70,7 @@ while($row = $result->fetch_assoc()){
 	if($lp = $r->fetch_assoc()){
 		$lps[$lp['lpnr']]['geometry'] = wkt2geojson($lp['wkt']);
 		$lps[$lp['lpnr']]['occupants'][] = array(
+			"id" => "https://resolver.clariah.org/atm/addressbooks/1907/" . $row['id'],
 			"label" => $label,
 			"ocr" => $row['txt'],
 			"part" => $row['part'],
@@ -85,11 +86,46 @@ while($row = $result->fetch_assoc()){
 
 $colprops = array("nrfound"=>$found, "nrnotfound"=>$notfound, "searchedfor"=>$q);
 
-$fc = array("type"=>"FeatureCollection", "properties"=>$colprops, "features"=>array());
+$contextjson = '{
+    "geojson": "https://purl.org/geojson/vocab#",
+    "Feature": "geojson:Feature",
+    "FeatureCollection": "geojson:FeatureCollection",
+    "GeometryCollection": "geojson:GeometryCollection",
+    "LineString": "geojson:LineString",
+    "MultiLineString": "geojson:MultiLineString",
+    "MultiPoint": "geojson:MultiPoint",
+    "MultiPolygon": "geojson:MultiPolygon",
+    "Point": "geojson:Point",
+    "Polygon": "geojson:Polygon",
+    "bbox": {
+      "@container": "@list",
+      "@id": "geojson:bbox"
+    },
+    "coordinates": {
+      "@container": "@list",
+      "@id": "geojson:coordinates"
+    },
+    "features": {
+      "@container": "@set",
+      "@id": "geojson:features"
+    },
+    "geometry": "geojson:geometry",
+    "id": "@id",
+    "properties": "geojson:properties",
+    "type": "@type",
+    "description": "http://purl.org/dc/terms/description",
+    "title": "http://purl.org/dc/terms/title",
+    "label": "http://schema.org/name",
+	"occupants": { "@reverse": "http://schema.org/address" }
+}';
+$context = json_decode($contextjson);
+
+$fc = array("@context"=>$context,"type"=>"FeatureCollection", "properties"=>$colprops, "features"=>array());
 
 foreach ($lps as $key => $value) {
 	
 	$adres = array("type"=>"Feature");
+	//$adres['id'] = "http://resolver.clariah.org/hisgis/lp/geometry/" . $key;
 	$adres['geometry'] = $value['geometry'];
 	$props = array(
 		"occupants"=>$value['occupants']
