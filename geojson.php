@@ -23,8 +23,6 @@ if(preg_match("/^https:\/\/adamlink.nl\/geo\/street\//", $q)){
 		WHERE profession = '" . $mysqli->real_escape_string($q) . "' and txt_lastname <> ''";
 }
 
-echo $sql;
-die;
 
 
 $result = $mysqli->query($sql);
@@ -63,7 +61,7 @@ while($row = $result->fetch_assoc()){
 	}
 	
 
-	$s = "select * from create_adresboeken.locatiepunten 
+	$s = "select * from locatiepunten 
 			where adamlink = '" . $row['uri_street'] . "'
 			and huisnr = '" . $nr . "'";
 	$r = $mysqli->query($s);
