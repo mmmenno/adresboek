@@ -1,7 +1,7 @@
 <?
 
 
-$sql = "SELECT DISTINCT(uri_street) FROM `observations`";
+$sql = "SELECT DISTINCT(uri_street) FROM `observations` where uri_street <> ''";
 $result = $mysqli->query($sql);
 
 $streetoptions = "";
