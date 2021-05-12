@@ -201,10 +201,10 @@ include("streets.php");
               var infotext = "<br />searched for:<br />";
               infotext += "<strong>" + geojsonprops['searchedfor'] + "</strong><br /><br />";
               infotext += "<a target=\"_blank\" href=\"geojson.php?q=" + geojsonprops['searchedfor'] + "\">";
-              infotext += geojsonprops['nrfound'] + " entries</a> located on map, ";
+              infotext += geojsonprops['nrfound'] + " addresses</a> located on map, ";
               infotext += "<a target=\"_blank\" href=\"not-shown.php?q=" + geojsonprops['searchedfor'] + "\">";
               infotext += geojsonprops['nrnotfound'] + "";
-              infotext += " entries</a> could - for various reasons - not be shown on map";
+              infotext += " addresses</a> could - for various reasons - not be shown on map";
               $('#searchinfo').html(infotext);
           },
           error: function() {
