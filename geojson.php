@@ -50,10 +50,15 @@ while($row = $result->fetch_assoc()){
 	}
 
 
+	$toev = "";
 	if(strlen($row['number'])){
-		$nr = $row['number'];
+		preg_match("/([0-9-]+) ?([a-z])?/", $row['number'],$matches);
+		$nr = $matches[1];
+		$toev = $matches[2];
 	}else{
-		$nr = $row['txt_number'];
+		preg_match("/([0-9-]+) ?([a-z])?/", $row['txt_number'],$matches);
+		$nr = $matches[1];
+		$toev = $matches[2];
 	}
 	if(strpos($nr,"-")){
 		$nrparts = explode("-", $nr);
@@ -63,7 +68,7 @@ while($row = $result->fetch_assoc()){
 
 	$s = "select * from locatiepunten 
 			where adamlink = '" . $row['uri_street'] . "'
-			and huisnr = '" . $nr . "'";
+			and huisnr = '" . $nr . "' and toevoeging = '" . $toev . "'";
 	$r = $mysqli->query($s);
 
 	if($lp = $r->fetch_assoc()){
